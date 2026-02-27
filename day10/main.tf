@@ -2,12 +2,12 @@ provider "aws" {
     region = "us-east-1"
 }
 
-resource "aws_instance" "instance" {
-    tags = {
-        Name = "my_instance_1"
-        env = "dev"
-    }
-    instance_type = "t3.small"
-    ami = "ami-0c1fe732b5494dc14"
+resource "aws_vpc" "vpc" {}
 
+resource "aws_subnet" "subnet" {
+    vpc_id = "${aws_vpc.vpc.id}"
+    map_public_ip_on_launch  = true
+    tags = {
+        Name = "my_subnet"
+    }
 }
